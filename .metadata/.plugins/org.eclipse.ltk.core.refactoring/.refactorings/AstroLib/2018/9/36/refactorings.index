@@ -17,3 +17,6 @@
 1536142456742	Rename method 'getMinutosSexagesimal'
 1536142471712	Rename method 'getSegundosSexagesimal'
 1536142503254	Rename field 'SexagesimalSeconds'
+1536233329288	Rename type 'CirculateCoordinateResults'
+1536241446217	Rename field 'FLOAT_360'
+1536241486059	Rename field 'F360'

@@ -1,8 +1,9 @@
 LaunchTargetManager/org.eclipse.launchbar.core.launchTargetType.local,Local/arch=x86_64
 LaunchTargetManager/org.eclipse.launchbar.core.launchTargetType.local,Local/os=win32
-configDescList=org.eclipse.launchbar.core.descriptorType.default\:CircularCoordinateTest.test2,org.eclipse.launchbar.core.descriptorType.default\:CircularCoordinateTest.testSetDegrees,org.eclipse.launchbar.core.descriptorType.default\:CircularCoordinateTest
+configDescList=org.eclipse.launchbar.core.descriptorType.default\:CircularCoordinateTest.test1,org.eclipse.launchbar.core.descriptorType.default\:CircularCoordinateTest.test2,org.eclipse.launchbar.core.descriptorType.default\:CircularCoordinateTest.testSetDegrees,org.eclipse.launchbar.core.descriptorType.default\:CircularCoordinateTest.test,org.eclipse.launchbar.core.descriptorType.default\:CircularCoordinateTest
 eclipse.preferences.version=1
+org.eclipse.launchbar.core.descriptorType.default\:CircularCoordinateTest.test/activeLaunchMode=run
 org.eclipse.launchbar.core.descriptorType.default\:CircularCoordinateTest.test2/activeLaunchMode=run
 org.eclipse.launchbar.core.descriptorType.default\:CircularCoordinateTest.testSetDegrees/activeLaunchMode=run
-org.eclipse.launchbar.core.descriptorType.default\:CircularCoordinateTest/activeLaunchMode=debug
+org.eclipse.launchbar.core.descriptorType.default\:CircularCoordinateTest/activeLaunchMode=run
 org.eclipse.launchbar.core.descriptorType.default\:CircularCoordinateTest/activeLaunchTarget=org.eclipse.launchbar.core.launchTargetType.local\:Local

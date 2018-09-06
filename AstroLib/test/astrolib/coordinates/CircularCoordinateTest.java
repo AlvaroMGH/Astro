@@ -2,58 +2,59 @@ package astrolib.coordinates;
 
 import static org.junit.Assert.*;
 
+import java.util.ArrayList;
+
 import org.junit.Test;
 
+
 public class CircularCoordinateTest {
-
+	ArrayList<CircularCoordinateResults> expectedResults = new ArrayList<CircularCoordinateResults>();
 
 	@Test
-	public void test1()
+	public void test()
 	{
-		testSetDegrees( 
-				(float)120, // Degrees to set  
-				(float)120, // [0-360[ expected degrees 
-				(float)120, // [0-180[ expected degrees
-				120,        // Expected sexagesimal degrees
-				0,          // Expected sexagesimal minutes
-				(float)0    // Expected sexagesimal seconds
-				);
+		fillListOfExpectedResults();
+		
+		for (int i=0; i<expectedResults.size(); i++ )
+		{
+			CircularCoordinateResults expectedResult = (CircularCoordinateResults) expectedResults.get(i);
+			Float degrees = expectedResult.getDegrees();
+			CircularCoordinate circularCoordinate = new CircularCoordinate();
+			circularCoordinate.setDegrees360(degrees);
+			
+			boolean correct = expectedResult.isEquals(circularCoordinate);
+			if ( !correct )
+			{
+				System.out.printf("Error. Degrees= %f \n", expectedResult.getDegrees().floatValue() );
+				System.out.printf( "Result expected: %s\n", expectedResult.toString() );
+				System.out.printf( "Result obtained: %s\n", circularCoordinate.toString() );
+				System.out.println();
+			}
+			assertTrue(correct);
+		}
 	}
+
+
 	
-	@Test
-	public void test2()
+	private void fillListOfExpectedResults()
 	{
-		testSetDegrees( 
-				(float)400.1, // Degrees to set  
-				(float)40.1, // [0-360[ expected degrees 
-				(float)40.1, // [0-180[ expected degrees
-				40,        // Expected sexagesimal degrees
-				6,          // Expected sexagesimal minutes
-				(float)0    // Expected sexagesimal seconds
-				);
-	}
-	
-	private void testSetDegrees( 
-			float degrees360, 
-			float expectedDegrees360,
-			float expectedDegrees180,
-			int expectedSexagesimalDegrees,
-			int expectedSexagesimalMinutes, 
-			float expectedSexagesimalSeconds )
-	{
-		CircularCoordinate circularCoordinate = new CircularCoordinate();
-		circularCoordinate.setDegrees360(degrees360);
+		//                                                     Degrees, Degrees360,  Degrees180, SexaDegrees, SexaMins, SexaSeconds
+		expectedResults.add(new CircularCoordinateResults( (float)   0, (float)  0,  (float)  0,           0,        0,    (float)0 ) );
+		expectedResults.add(new CircularCoordinateResults( (float)  90, (float) 90,  (float) 90,          90,        0,    (float)0 ) );
+		expectedResults.add(new CircularCoordinateResults( (float) -90, (float)270,  (float)-90,         270,        0,    (float)0 ) );
+		expectedResults.add(new CircularCoordinateResults( (float) 180, (float)180,  (float)  0,         180,        0,    (float)0 ) );
+		expectedResults.add(new CircularCoordinateResults( (float)-180, (float)180,  (float)  0,         180,        0,    (float)0 ) );
+		expectedResults.add(new CircularCoordinateResults( (float) 270, (float)270,  (float)-90,         270,        0,    (float)0 ) );
+		expectedResults.add(new CircularCoordinateResults( (float)-270, (float) 90,  (float) 90,          90,        0,    (float)0 ) );
+		expectedResults.add(new CircularCoordinateResults( (float) 360, (float)  0,  (float)  0,           0,        0,    (float)0 ) );
+		expectedResults.add(new CircularCoordinateResults( (float)-360, (float)  0,  (float)  0,           0,        0,    (float)0 ) );
+		expectedResults.add(new CircularCoordinateResults( (float)   1, (float)  1,  (float)  1,           1,        0,    (float)0 ) );
+		expectedResults.add(new CircularCoordinateResults( (float)  -1, (float)359,  (float) -1,         359,        0,    (float)0 ) );
 		
-		System.out.printf("%f %f",  circularCoordinate.getDegrees360(), expectedDegrees360 );
-		
-		// assertTrue( circularCoordinate.getDegrees360() == expectedDegrees360 );
-		assertTrue( circularCoordinate.getDegrees360().compareTo( expectedDegrees360 ) == 0 );
-		assertTrue( circularCoordinate.getDegrees180() == expectedDegrees180 );
-		assertTrue( circularCoordinate.getSexagesimalDegrees() == expectedSexagesimalDegrees );
-		assertTrue( circularCoordinate.getSexagesimalMinutes() == expectedSexagesimalMinutes );
-		assertTrue( circularCoordinate.getSexagesimalSeconds() == expectedSexagesimalSeconds );
-		
-		
+		// Tests with decimal point
+//      //                                                     Degrees,   Degrees360,   Degrees180, SexaDegrees, SexaMins, SexaSeconds
+		expectedResults.add(new CircularCoordinateResults( (float) 0.1, (float)  0.1,  (float) 0.1,           0,        6,    (float)0 ) );
+		expectedResults.add(new CircularCoordinateResults( (float)-0.1, (float)359.9,  (float)-0.1,         359,       54,    (float)0 ) );
 	}
 
 }
