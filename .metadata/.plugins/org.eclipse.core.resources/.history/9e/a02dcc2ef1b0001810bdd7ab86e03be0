@@ -1,0 +1,16 @@
+package astrolib.coordinates;
+
+import static org.junit.Assert.*;
+
+import org.junit.Test;
+
+public class CircularCoordinateTest {
+
+	@Test
+	public void test() {
+		CircularCoordinate cc = new CircularCoordinate(120);
+		cc.getDegrees360() == 120;
+		
+	}
+
+}

@@ -1,0 +1,27 @@
+package astrolib.coordinates;
+
+
+/**
+ * @author alvaro.gonzalez
+ * @version 1.0
+ * @created 05-sep-2018 10:22:41
+ */
+public class CircularCoordinate {
+	
+
+	private float degrees360; /** Degrees in interval [0-360[ */
+	public float getdegrees360(){ return degrees360; }
+
+	private float degrees180; /** Degrees in interval [0-180[ */
+
+	public CircularCoordinate() {
+
+	}
+
+	public void finalize() throws Throwable {
+
+	}
+
+
+
+}

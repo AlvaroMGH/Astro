@@ -1,0 +1,19 @@
+1536139055507	Rename local variable 'grados360'
+1536139098906	Rename method 'calculaGrados360'
+1536139121360	Rename local variable 'degrees360'
+1536139136916	Rename local variable 'fAuxGrados'
+1536139278407	Rename method 'calculaSexagesimal'
+1536139311697	Rename field 'iGradosSexagesimal'
+1536139359651	Rename local variable 'fGradosRestantes'
+1536139396948	Rename field 'iMinutosSexagesimal'
+1536139416589	Rename field 'fSegundosSexagesimal'
+1536139700489	Delete element
+1536139775421	Delete element
+1536139848393	Delete element
+1536140103614	Delete element
+1536140470387	Move folder
+1536142394112	Rename field 'sexagesimaDegree'
+1536142440232	Rename field 'sexagesimalDegree'
+1536142456742	Rename method 'getMinutosSexagesimal'
+1536142471712	Rename method 'getSegundosSexagesimal'
+1536142503254	Rename field 'SexagesimalSeconds'
