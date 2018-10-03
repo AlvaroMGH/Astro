@@ -1,9 +1,0 @@
-
-`
-0src/astrolib/coordinates/CircularCoordinate.java,9\b\9b52fe61d3aca5e922d81a2e4c0ecb53d48666d6
-i
-9test/astrolib/coordinates/CirculateCoordinateResults.java,7\2\7286254f7a5f768890c8e04f23dbcb74db5e4377
-h
-8test/astrolib/coordinates/CircularCoordinateResults.java,1\6\16efdd7b4e80b77f406c96de965c83c5edadecad
-e
-5test/astrolib/coordinates/CircularCoordinateTest.java,0\b\0b317d90b9813e33a9a85a1c5c819a052b884b0e
