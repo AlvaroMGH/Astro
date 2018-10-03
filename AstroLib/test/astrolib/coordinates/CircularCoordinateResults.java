@@ -2,22 +2,22 @@ package astrolib.coordinates;
 
 public class CircularCoordinateResults {
 
-	private Float degrees;
-	private Float degrees360;
-	private Float degrees180;
+	private Double degrees;
+	private Double degrees360;
+	private Double degrees180;
 	private Integer sexagesimalDegrees;
 	private Integer sexagesimalMinutes;
-	private Float sexagesimalSeconds;
+	private Double sexagesimalSeconds;
 	
-	public Float getDegrees() {
+	public Double getDegrees() {
 		return degrees;
 	}
 
-	public Float getDegrees360() {
+	public Double getDegrees360() {
 		return degrees360;
 	}
 
-	public Float getDegrees180() {
+	public Double getDegrees180() {
 		return degrees180;
 	}
 
@@ -29,19 +29,19 @@ public class CircularCoordinateResults {
 		return sexagesimalMinutes;
 	}
 
-	public Float getSexagesimalSeconds() {
+	public Double getSexagesimalSeconds() {
 		return sexagesimalSeconds;
 	}
 
 
 	
 	public CircularCoordinateResults(
-			Float degrees, 
-			Float degrees360, 
-			Float degrees180, 
+			Double degrees, 
+			Double degrees360, 
+			Double degrees180, 
 			Integer sexagesimalDegrees,
 			Integer sexagesimalMinutes, 
-			Float   sexagesimalSeconds) {
+			Double   sexagesimalSeconds) {
 
 		this.degrees = degrees;
 		this.degrees360 = degrees360;

@@ -7,14 +7,17 @@ package astrolib.coordinates;
  * @created 05-sep-2018 10:22:41
  */
 public class CircularCoordinate {
-	final Float f360 = new Float( 360 ); /** Used in several operations */
-	final Float f180 = new Float( 180 ); /** Used in several operations */
+	final Double CORRECTOR = 10.0; /** Factor for multipliying fators and the divide the result: avoid problems with Doubleing point in java ^*/
+	final int PRECISION = 3; /** Number of decimals in the results */ 
+	
+	final Double f360 = new Double( 360 ); /** Used in several operations */
+	final Double f180 = new Double( 180 ); /** Used in several operations */
 
-	private Float degrees360; /** Degrees in interval [0-360[ */
-	public Float getDegrees360(){ return degrees360; }
+	private Double degrees360; /** Degrees in interval [0-360[ */
+	public Double getDegrees360(){ return degrees360; }
 
-	private Float degrees180; /** Degrees in interval [0-180[ */
-	public Float getDegrees180() { return degrees180;  } 
+	private Double degrees180; /** Degrees in interval [0-180[ */
+	public Double getDegrees180() { return degrees180;  } 
 
 
 	public void finalize() throws Throwable {
@@ -25,17 +28,17 @@ public class CircularCoordinate {
 	// Sexagesimal System
 	private int sexagesimalDegrees;
 	private int sexagesimalMinutes;
-	private Float sexagesimalSeconds;
+	private Double sexagesimalSeconds;
 	public int getSexagesimalDegrees()   { return sexagesimalDegrees; }
 	public int getSexagesimalMinutes()   { return sexagesimalMinutes; }
-	public Float getSexagesimalSeconds() { return sexagesimalSeconds; }
+	public Double getSexagesimalSeconds() { return sexagesimalSeconds; }
 	
 	/**
 	 * Default constructor 
 	 * Set to 0º
 	 */
 	public CircularCoordinate() {
-		setDegrees360( (float)0 );
+		setDegrees360( 0.0 );
 	}
 	
 	/**
@@ -54,7 +57,7 @@ public class CircularCoordinate {
 	 * Example: 365º is convert to 5º
 	 * @param degrees
 	 */	
-	public void setDegrees360(Float degrees )
+	public void setDegrees360(Double degrees )
 	{
 		degrees360 = calculateDegrees360( degrees );
 		calculateDegrees180();
@@ -79,7 +82,7 @@ public class CircularCoordinate {
 	protected CircularCoordinate subtract( CircularCoordinate cc )
 	{
 		CircularCoordinate result = new CircularCoordinate( this );
-		Float fDegrees360Aux = degrees360 - cc.getDegrees360();
+		Double fDegrees360Aux = degrees360 - cc.getDegrees360();
 		result.setDegrees360(fDegrees360Aux);
 		return result;
 	}
@@ -93,7 +96,7 @@ public class CircularCoordinate {
 	protected CircularCoordinate add( CircularCoordinate cc )
 	{
 		CircularCoordinate result = new CircularCoordinate( this );
-		Float fDegrees360Aux = degrees360 + cc.getDegrees360();
+		Double fDegrees360Aux = degrees360 + cc.getDegrees360();
 		result.setDegrees360(fDegrees360Aux);
 		return result;
 	}
@@ -102,21 +105,25 @@ public class CircularCoordinate {
 	 * Normalizes the total of degrees to the interval [0-360[
 	 * @param degrees
 	 */
-	protected Float calculateDegrees360( Float degrees )
+	protected Double calculateDegrees360( Double degrees )
 	{
-		Float auxDegrees = degrees;
+		Double auxDegrees = degrees;
 
 		if ( Math.abs(degrees) >= 360 )
 		{
 			auxDegrees = degrees % 360;
 		}
 		
-		auxDegrees += (float)0.0; // Avoid -0.0
+		auxDegrees += (Double)0.0; // Avoid -0.0
 		
-		if ( auxDegrees.compareTo( (float)0 ) < 0 )
+		if ( auxDegrees.compareTo( 0.0 ) < 0 )
 		{
 			auxDegrees += 360;
 		}
+		
+		int precision = (int) Math.pow(10, PRECISION);
+		auxDegrees = Math.round(auxDegrees*precision)/(double)precision;
+		
 		return auxDegrees;
 	}
 	
@@ -125,19 +132,18 @@ public class CircularCoordinate {
 	 * Once set this.degrees360 sets degrees180 to the interval ]-180 - 180]
 	 */
 	protected void calculateDegrees180() {
-		if ( degrees360.compareTo( f180) > 0)
+		if ( degrees360.compareTo( f180 ) > 0)
 		{
-			degrees180 = degrees360*10 - f360*10;
-			degrees180 /= 10; // Avoid problems with decimal point
-		}
-		else if ( degrees360.compareTo( f180) == 0)
-		{
-			degrees180 = (float)0;
+			degrees180 = degrees360*CORRECTOR - f360*CORRECTOR;
+			degrees180 /= CORRECTOR; // Avoid problems with decimal point
 		}
 		else
 		{
 			degrees180 =  degrees360;
 		}
+		
+		int precision = (int) Math.pow(10, PRECISION);
+		degrees180 = Math.round(degrees180*precision)/(double)precision;
 	}
 	
 	
@@ -146,16 +152,20 @@ public class CircularCoordinate {
 	 */
 	private void calculateSexagesimal()
 	{
-		sexagesimalDegrees = (int) (degrees360.floatValue());
+		sexagesimalDegrees = degrees360.intValue();
 		
-		// Multiply by 10 the factors and then divide by 10 the result avoid some problems in decimal point in java
-		Float remainingDegrees = degrees360*10 - sexagesimalDegrees*10;
-		remainingDegrees /= 10;
+		// Multiply by a factors and then divide by 10 the result avoid some problems in decimal point in java
+		Double remainingDegrees = degrees360*CORRECTOR - sexagesimalDegrees*CORRECTOR;
+		remainingDegrees /= CORRECTOR;
 		
 		sexagesimalMinutes = (int) (remainingDegrees * 60);
 		
-		// Multiply by 10 the factors and then divide by 10 the result avoid some problems in decimal point in java
-		sexagesimalSeconds = ( 10*degrees360 - 10*sexagesimalDegrees -10* sexagesimalMinutes/(float)60)*3600;
-		sexagesimalSeconds /= 10;
+		// Multiply by a factor the factors and then divide by the factor the result avoid some problems in decimal point in java	
+		sexagesimalSeconds = ( CORRECTOR*degrees360 - CORRECTOR*sexagesimalDegrees - CORRECTOR*sexagesimalMinutes/60.0 )*3600.0;
+		sexagesimalSeconds /= CORRECTOR;
+		
+		sexagesimalSeconds = Math.round(sexagesimalSeconds*100) / 100.0; 
+		
+		sexagesimalSeconds = sexagesimalSeconds % 60.0;
 	}	
 }
